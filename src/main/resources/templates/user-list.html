@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<html>
+<head>
+    <title>User Management Application</title>
+
+</head>
+<body>
+<center>
+    <div id="wrapper">
+        <div id="header">
+            <h1>User Management Application</h1>
+            <h2>
+                <a th:href="@{/new}">Add New User</a>
+                &nbsp;&nbsp;&nbsp;
+                <a th:href="@{/}">Back to starting page</a>
+
+            </h2>
+        </div>
+    </div>
+</center>
+<div align="center">
+    <table border="1" cellpadding="10">
+        <caption><h2>List of Users</h2></caption>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Password</th>
+            <th>Money</th>
+            <th>Role(s)</th>
+            <th >Actions</th>
+        </tr>
+        <tr th:each="user : ${users}">
+            <td th:text="${user.id}"></td>
+            <td th:text="${user.username}"></td>
+            <td th:text="${user.password}"></td>
+            <td th:text="${user.money}"></td>
+            <td>
+             <a th:each="role : ${user.roles}">
+                <li th:text="${role.type}">
+            <td>
+                <a th:href="@{/edit?id={id}(id=${user.id})}">Edit</a>&nbsp;
+                <a th:href="@{/delete?id={id}(id=${user.id})}">Delete</a>
+            </td>
+        </tr>
+    </table>
+</div>
+<footer>
+    <!--TODO -->
+<!--    <c:import url="logout.jsp" />-->
+</footer>
+</body>
+</html>
+
+<!--
+<div th:switch="${users}">
+    <h2 th:case="null">No users yet!</h2>
+    <div th:case="*">
+        <h2>Users</h2>
+        <table>
+            <thead>
+            <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Edit</th>
+                <th>Delete</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="user : ${users}">
+                <td th:text="${user.name}"></td>
+                <td th:text="${user.email}"></td>
+                <td><a th:href="@{/edit/{id}(id=${user.id})}">Edit</a></td>
+                <td><a th:href="@{/delete/{id}(id=${user.id})}">Delete</a></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <p><a href="/signup">Add a new user</a></p>
+</div>-->

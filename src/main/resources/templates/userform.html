@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+
+<html>
+<head>
+	<title>User Management Application</title>
+</head>
+<body>
+
+	<center>
+		<h1>User Management</h1>
+        <h2>
+        	<a th:href="@{/new}">Add New User</a>
+        	&nbsp;&nbsp;&nbsp;
+        	<a th:href="@{/list}">List All Users</a>
+        </h2>
+	</center>
+
+
+    <div align="center">
+		<form action="#" th:action="@{/save}" th:object="${user}" method="POST">
+			<input type="hidden" th:field="*{id}" id="id" />
+
+			<table border="1" cellpadding="5">
+				<caption>
+					<h2>
+						<p th:if="${edit}">Edit User</p>
+						<p th:unless="${edit}">New User</p>
+					</h2>
+				</caption>
+				<tr>
+					<th><label for="username">User Name: </label></th>
+					<td>
+						<input type="text" th:field="*{username}" id="username" placeholder="username" size="45" />
+					</td>
+				</tr>
+				<tr>
+					<th><label for="password">User Password: </label></th>
+					<td>
+						<input type="text" th:field="*{password}" id="password" placeholder="password" size="45" />
+					</td>
+				</tr>
+				<tr>
+					<th><label for="money">Money: </label></th>
+					<td>
+						<input type="number" th:field="*{money}" id="money" placeholder="money" size="45" />					</td>
+				<tr>
+					<th><label for="roles">Role: </label></th>
+					<td>
+						<select type="text" th:field="*{roles}" id="roles" multiple="multiple">
+							<option th:each="role : ${allRoles}"
+									th:field="*{roles}"
+									th:value="${role.id}"
+									th:text="${role.type}"></option>
+						</select>
+					</td>
+				<tr>
+					<td colspan="2" align="center">
+						<span th:if="${edit}">
+								<input  type="submit" value="Update" /> or <a href="/list">Cancel</a>
+						</span>
+						<span th:unless="${edit}">
+								<input type="submit" value="Register" /> or <a href="/list">Cancel</a>
+						</span>
+					</td>
+				</tr>
+			</table>
+		</form>
+    </div>
+
+	<footer>
+<!--		<p>Your role is: ${sessionScope['role']}</p>-->
+	</footer>
+</body>
+</html>
