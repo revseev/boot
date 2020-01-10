@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">>
+
+<div th:fragment="logout">
+    <b>Your info:</b>
+    <p> Logged user: <span sec:authentication="principal.username"></span></p>
+    Roles: <span sec:authentication="principal.authorities">[ROLE_USER, ROLE_ADMIN]</span>
+    <!--<table>
+        <caption>
+
+        </caption>
+        <tr>
+            <th>Name: </th>
+            <td>
+                <sec:authentication property="principal.username"/>
+            </td>
+        </tr>
+        <tr>
+            <th>Role(s): </th>
+            <td>
+                <sec:authentication property="principal.authorities"/>
+            </td>
+        </tr>
+        <tr>
+            <td>-->
+                <form th:action="@{/logout}" method="post">
+                    <input type="submit" value="Sign Out"/>
+            <!--    </form>
+            </td>
+        </tr>
+    </table>-->
+</div>
+
+
+
