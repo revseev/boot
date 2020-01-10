@@ -1,0 +1,29 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Access Denied</title>
+
+    <style>
+        .failed {
+            color: darkred;
+            font-size: x-large;
+            font-style: italic;
+        }
+    </style>
+
+</head>
+
+<body>
+<!-- Include _menu.html
+<th:block th:include="/_menu"></th:block>-->
+
+<center>
+    <p class="failed">You are not authorised to view this resource!</p>
+    <br>
+    <a th:href="@{/}">Back to starting page</a>
+</center>
+<footer>
+    <div th:insert="~{/fragments/logout :: logout}"></div>
+</footer>
+</body>
+</html>
