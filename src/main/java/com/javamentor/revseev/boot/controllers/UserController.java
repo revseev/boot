@@ -24,8 +24,8 @@ public class UserController {
 
 
     @GetMapping
-    public String toIndex() {
-        return "index";
+    public ModelAndView toIndex() {
+        return new ModelAndView("index");
     }
 
     @GetMapping(value = "/list")
