@@ -14,6 +14,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
 @Configuration
 @EnableWebSecurity
@@ -54,33 +55,23 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     public void configureGlobalSecurity(AuthenticationManagerBuilder auth) throws Exception {
         auth.authenticationProvider(authenticationProvider());
     }
-/*
- // In-memory authentication
- @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        // add UserBuilder
-        UserBuilder users = User.withDefaultPasswordEncoder();
-        // add users for in memory authentication
-        auth.inMemoryAuthentication()
-                .withUser(users.username("john").password("john").roles("EMPLOYEE"))
-                .withUser(users.username("mary").password("mary").roles("EMPLOYEE", "MANAGER"))
-                .withUser(users.username("roman").password("roman").roles("EMPLOYEE", "ADMIN"));
-    }*/
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
 
         http.authorizeRequests()
-                .antMatchers("/","/login").access("hasRole('USER') or hasRole('ADMIN')")
-                .antMatchers("/list","/new","/save","delete","/edit").hasRole("ADMIN");
+                .antMatchers("/","/login")
+                .hasAnyAuthority("USER", "ADMIN")
+                .antMatchers("/list","/new","/save","delete","/edit")
+                .hasAuthority("ADMIN");
 
         http.formLogin()
                 // указываем страницу с формой логина
                 .loginPage("/login")
                 //указываем логику обработки при логине
-                .successHandler(new LoginSuccessHandler()) //NEW
+                .successHandler(myAuthenticationSuccessHandler())
                 // указываем action с формы логина
-                .loginProcessingUrl("/login") //No need to have a controller for this
+                .loginProcessingUrl("/login")
                 // Указываем параметры логина и пароля с формы логина
                 .usernameParameter("username").passwordParameter("password")
                 // даем доступ к форме логина всем
@@ -106,4 +97,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     public static NoOpPasswordEncoder passwordEncoder() {
         return (NoOpPasswordEncoder) NoOpPasswordEncoder.getInstance();
     }
+
+    @Bean
+    public AuthenticationSuccessHandler myAuthenticationSuccessHandler() {
+        return new LoginSuccessHandler();
+    }
+
 }

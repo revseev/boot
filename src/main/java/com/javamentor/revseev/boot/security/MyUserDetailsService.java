@@ -1,5 +1,6 @@
 package com.javamentor.revseev.boot.security;
 
+import com.javamentor.revseev.boot.dao.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -18,25 +19,23 @@ import java.util.List;
 @Service
 public class MyUserDetailsService implements UserDetailsService {
 
+//    @Autowired//TODO
+//    private UserService userService;
+
+    private UserRepository userRepository;
+
     @Autowired
-    private UserService userService;
+    public MyUserDetailsService(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
 
     @Override
     @Transactional(readOnly=true)
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = userService.findByUsername(username);
+        User user = userRepository.findByUsername(username);
         if (user == null) {
-            throw new UsernameNotFoundException(username);
+            throw new UsernameNotFoundException("User " + username + " was not found in the database");
         }
-        return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), getGrantedAuthorities(user));
-    }
-
-    private List<GrantedAuthority> getGrantedAuthorities(User user){
-        List<GrantedAuthority> authorities = new ArrayList<>();
-
-        for(Role role : user.getRoles()){
-            authorities.add(new SimpleGrantedAuthority("ROLE_"+role.getType()));
-        }
-        return authorities;
+        return user;
     }
 }

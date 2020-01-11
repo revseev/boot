@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <html>
 <head>
     <title>User Management Application</title>
@@ -36,8 +37,9 @@
             <td th:text="${user.password}"></td>
             <td th:text="${user.money}"></td>
             <td>
-             <a th:each="role : ${user.roles}">
-                <li th:text="${role.type}">
+             <a th:each="role, iter: ${user.roles}">
+                <th:block th:text="${role.type}" />
+                 <th:block th:if="${!iter.last}">, </th:block>
             <td>
                 <a th:href="@{/edit?id={id}(id=${user.id})}">Edit</a>&nbsp;
                 <a th:href="@{/delete?id={id}(id=${user.id})}">Delete</a>

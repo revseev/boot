@@ -29,10 +29,14 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler {
                 = authentication.getAuthorities();
 
         for (GrantedAuthority grantedAuthority : authorities) {
-            if (grantedAuthority.getAuthority().equals("ROLE_USER")) {
+            if (grantedAuthority.getAuthority()
+                      .equals("USER"))
+            {
                 isUser = true;
                 break;
-            } else if (grantedAuthority.getAuthority().equals("ROLE_ADMIN")) {
+            } else if (grantedAuthority.getAuthority()
+                    .equals("ADMIN"))
+            {
                 isAdmin = true;
                 break;
             }

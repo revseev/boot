@@ -1,3 +1,4 @@
+/*
 package com.javamentor.revseev.boot.security;
 
 import org.springframework.context.annotation.Configuration;
@@ -14,4 +15,4 @@ public class MvcConfig implements WebMvcConfigurer {
         registry.addViewController("/login").setViewName("login");
     }
 
-}
+}*/
