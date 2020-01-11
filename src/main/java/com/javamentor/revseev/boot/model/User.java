@@ -28,7 +28,7 @@ public class User implements UserDetails {
     @Column(name = "money")
     private Long money;
 
-    @ManyToMany(fetch = FetchType.LAZY,
+    @ManyToMany(fetch = FetchType.EAGER,
             //TODO потестировать CascadeType.PERSIST,
             cascade= {CascadeType.MERGE}
     )
