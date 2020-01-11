@@ -28,8 +28,7 @@ public class User implements UserDetails {
     @Column(name = "money")
     private Long money;
 
-    @ManyToMany(fetch = FetchType.EAGER,
-            //TODO потестировать CascadeType.PERSIST,
+    @ManyToMany(fetch = FetchType.LAZY,
             cascade= {CascadeType.MERGE}
     )
     @JoinTable(name = "users_roles",

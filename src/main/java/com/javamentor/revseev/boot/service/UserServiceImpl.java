@@ -2,6 +2,7 @@ package com.javamentor.revseev.boot.service;
 
 import com.javamentor.revseev.boot.model.User;
 import com.javamentor.revseev.boot.dao.UserRepository;
+import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -35,12 +36,22 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional(readOnly = true)
     public User findByUsername(String username) {
-        return userRepository.findByUsername(username);
+        User user = userRepository.findByUsername(username);
+        //Lazy-load support
+        if(user!=null) {
+            Hibernate.initialize(user.getRoles());
+        }
+        return user;
     }
 
     @Transactional(readOnly = true)
     public List<User> getAllUsers(){
-        return userRepository.findAll();
+        List<User> users = userRepository.findAll();
+        //Lazy-load support
+        for(User user : users){
+            Hibernate.initialize(user.getRoles());
+        }
+        return users;
     }
 
     public void deleteUser(long id){
