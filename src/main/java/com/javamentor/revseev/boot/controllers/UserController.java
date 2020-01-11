@@ -29,18 +29,16 @@ public class UserController {
     }
 
     @GetMapping(value = "/list")
-    public String toList(Model model) {
-        List<User> users = userService.getAllUsers();
-        model.addAttribute("users", users);
-        return "user-list";
+    public ModelAndView toList() {
+        return new ModelAndView("user-list")
+                .addObject("users", userService.getAllUsers());
     }
 
     @GetMapping(value = "/new")
-    public String toUserForm(Model model) {
-        User user = new User();
-        model.addAttribute("user", user);
-        model.addAttribute("edit", false);
-        return "userform";
+    public ModelAndView toUserForm() {
+        return new ModelAndView("userform")
+                .addObject("user", new User())
+                .addObject("edit", false);
     }
 
     @ModelAttribute("allRoles")
@@ -61,9 +59,10 @@ public class UserController {
     }
 
     @GetMapping(value = "/edit")
-    public String toEditForm(@RequestParam(value = "id") long id, Model model) {
-        model.addAttribute("user", userService.findById(id));
-        model.addAttribute("edit", true);
-        return "userform";
+    public ModelAndView toEditForm(@RequestParam(value = "id") long id) {
+        return new ModelAndView("userform")
+                .addObject("user", userService.findById(id))
+                .addObject("edit", true);
+
     }
 }

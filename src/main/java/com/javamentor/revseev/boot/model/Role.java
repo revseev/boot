@@ -19,12 +19,10 @@ public class Role implements GrantedAuthority {
     public Role() {
     }
 
-    //TODO  additional constructors if needed
     public Role(String type) {
         this.type = type;
     }
 
-    //TODO Long?
     public long getId() {
         return id;
     }

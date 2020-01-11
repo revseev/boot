@@ -28,8 +28,8 @@ public class User implements UserDetails {
     @Column(name = "money")
     private Long money;
 
-    @ManyToMany(fetch = FetchType.EAGER,
-            //TODO потестировать
+    @ManyToMany(fetch = FetchType.LAZY,
+            //TODO потестировать CascadeType.PERSIST,
             cascade= {CascadeType.MERGE}
     )
     @JoinTable(name = "users_roles",
