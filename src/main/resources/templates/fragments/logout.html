@@ -11,15 +11,15 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
     Logged user:
     <span sec:authentication="name"></span><br>
     Roles:
-<!--    <span sec:authorize="hasAuthority('USER')">USER</span>
-    <span sec:authorize="hasAuthority('ADMIN')">ADMIN</span>
+    <!--<span sec:authorize="hasAuthority('USER')">USER</span>
+    <span sec:authorize="hasAuthority('ADMIN')">ADMIN</span>-->
 
-    <span sec:authentication="principal.authorities"/>-->
-
+    <span sec:authentication="principal.authorities"/>
+<!--
     <th:block th:each="r, iter:${#authentication.getAuthorities()}">
         <span th:text="${r.getAuthority()}"></span>
         <th:block th:if="${!iter.last}">, </th:block>
-    </th:block>
+    </th:block>-->
 
     <form th:action="@{/logout}" method="post">
     <input type="submit" value="Sign Out"/>
