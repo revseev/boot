@@ -49,6 +49,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     UserDetailsService userDetailsService;
 
     @Autowired
+    @SuppressWarnings("deprecation")
     public void configureGlobalSecurity(AuthenticationManagerBuilder auth) throws Exception {
         auth.authenticationProvider(authenticationProvider());
     }
@@ -75,7 +76,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .permitAll();
 
         http.logout()
-                .permitAll();
+                /*.permitAll()*/;
 
         http.exceptionHandling()
                 .accessDeniedPage("/access-denied");
