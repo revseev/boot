@@ -12,4 +12,5 @@ public interface RoleService {
     Role findByType(String type);
 
     List<Role> getAll();
+
 }

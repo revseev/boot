@@ -6,21 +6,20 @@
 
 
 <div th:fragment="auth-info">
-  <b>Your info:</b><br>
+  <b>Your account details:</b><br>
   <!--Logged user: <span th:utext="${#request.userPrincipal.name}"></span><br>
   Roles: <span th:utext="${#request.userPrincipal.authorities}"></span><br>-->
-  Logged user:
-  <span sec:authentication="name"></span><br>
+  Username:
+  <b sec:authentication="name"></b><br>
+  <!--  <b sec:authentication="password"></b><br>-->
   Roles:
-  <!--<span sec:authorize="hasAuthority('USER')">USER</span>
-  <span sec:authorize="hasAuthority('ADMIN')">ADMIN</span>-->
+  <!--  <b sec:authentication="principal.authorities"></b>-->
+  <th:block th:each="r, iter:${#authentication.getAuthorities()}">
+    <b th:text="${r.getAuthority()}"></b>
+    <th:block th:if="${!iter.last}">, </th:block>
+  </th:block>
 
-  <span sec:authentication="principal.authorities"/>
-  <!--
-      <th:block th:each="r, iter:${#authentication.getAuthorities()}">
-          <span th:text="${r.getAuthority()}"></span>
-          <th:block th:if="${!iter.last}">, </th:block>
-      </th:block>-->
+
 </div>
 <div th:fragment="logout">
   <form class="form-inline" th:action="@{/logout}" method="post">

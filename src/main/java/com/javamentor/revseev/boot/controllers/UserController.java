@@ -2,7 +2,6 @@ package com.javamentor.revseev.boot.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import com.javamentor.revseev.boot.model.Role;
@@ -60,7 +59,7 @@ public class UserController {
 
     @GetMapping(value = "/edit")
     public ModelAndView toEditForm(@RequestParam(value = "id") long id) {
-        return new ModelAndView("userform")
+        return new ModelAndView("/form")
                 .addObject("user", userService.findById(id))
                 .addObject("edit", true);
 

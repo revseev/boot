@@ -1,0 +1,47 @@
+<div th:fragment="form">
+    <div align="center">
+		<form action="#" th:action="@{/save}" th:object="${user}" method="POST">
+			<input type="hidden" th:field="*{id}" id="id" />
+
+			<table>
+				<tr>
+					<th><label for="username">User Name: </label></th>
+					<td>
+						<input type="text" th:field="*{username}" id="username" placeholder="username" size="45" />
+					</td>
+				</tr>
+				<tr>
+					<th><label for="password">User Password: </label></th>
+					<td>
+						<input type="text" th:field="*{password}" id="password" placeholder="password" size="45" />
+					</td>
+				</tr>
+				<tr>
+					<th><label for="money">Money: </label></th>
+					<td>
+						<input type="number" th:field="*{money}" id="money" placeholder="money" size="45" />					</td>
+				<tr>
+					<th><label for="roles">Role: </label></th>
+					<td>
+						<select type="text" th:field="*{roles}" id="roles" multiple="multiple">
+							<option th:each="role : ${allRoles}"
+									th:field="*{roles}"
+									th:value="${role.id}"
+									th:text="${role.type}"></option>
+						</select>
+					</td>
+				<tr>
+					<td colspan="2" align="center">
+						<span th:if="${edit}">
+								<input  type="submit" value="Update" /> or <a href="/list">Cancel</a>
+						</span>
+						<span th:unless="${edit}">
+								<input type="submit" value="Register" /> or <a href="/list">Cancel</a>
+						</span>
+					</td>
+				</tr>
+			</table>
+		</form>
+    </div>
+
+</div>
