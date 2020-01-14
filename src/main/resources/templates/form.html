@@ -1,4 +1,41 @@
-<div th:fragment="form">
+
+<div class="container-fluid" style="margin-top: 1em;">
+	<div class="row">
+		<div class="col-8 mx-auto align-items-center" style="max-width: 300px;">
+
+
+			<form th:action="@{/save}" th:object="${user}" method="POST" class="form-group">
+
+				<!--  id      -->
+<!--				<label for="id" class="form-text text-center"><b>Id</b></label>-->
+				<input th:field="*{id}" id="id" type="hidden" class="form-control" placeholder="User Id" name="id">
+				<!--  Login      -->
+				<label for="inputName" class="form-text text-center"><b>Username</b></label>
+				<input th:field="*{username}" type="text" id="inputName" class="form-control" placeholder="Username" name="username">
+				<!--  Password      -->
+				<label for="inputPassword" class="form-text text-center"><b>Password</b></label>
+				<input th:field="*{password}" id="inputPassword" class="form-control" placeholder="Password" name="password">
+				<!--  Money      -->
+				<label for="inputMoney" class="form-text text-center"><b>Money</b></label>
+				<input th:field="*{money}" type="number" id="inputMoney" class="form-control" placeholder="Money" name="money">
+
+				<label for="inputRoles" class="form-text text-center"><b>Roles</b></label>
+				<select th:field="*{roles}" class="form-control" type="text"  id="inputRoles" name="Roles" multiple="multiple" size="2">
+
+					<option th:each="role : ${allRoles}"
+									th:field="*{roles}"
+									th:value="${role.id}"
+									th:text="${role.type}"></option>
+				</select>
+
+				<button class="btn btn-lg btn-success btn-block" type="submit" style="margin-top: 10px">Submit</button>
+			</form>
+
+		</div>
+	</div>
+</div>
+
+<!--
     <div align="center">
 		<form action="#" th:action="@{/save}" th:object="${user}" method="POST">
 			<input type="hidden" th:field="*{id}" id="id" />
@@ -42,6 +79,5 @@
 				</tr>
 			</table>
 		</form>
-    </div>
+    </div>-->
 
-</div>

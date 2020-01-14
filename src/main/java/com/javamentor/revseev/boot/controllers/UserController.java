@@ -35,7 +35,7 @@ public class UserController {
 
     @GetMapping(value = "/new")
     public ModelAndView toUserForm() {
-        return new ModelAndView("userform")
+        return new ModelAndView("form")
                 .addObject("user", new User())
                 .addObject("edit", false);
     }
